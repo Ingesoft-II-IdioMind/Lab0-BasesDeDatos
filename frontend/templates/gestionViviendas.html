@@ -1,0 +1,71 @@
+{%extends "./base.html" %}
+{%block title%}Gestion Viviendas{%endblock%}
+{% block body%}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2 style="color: #E67320">Listado viviendas</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarVivienda/" method="POST" class="">{% csrf_token %}
+                    <div class="form-group mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Direccion</label>
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Capacidad</label>
+                        <input type="text" id="txtApellido" name="txtApellido" class="form-control" placeholder="Apellido"
+                            maxlength="50">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1 style="color: #E67320">Listado de Personas</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Id</th>
+                        <th>Direccion</th>
+                        <th>Capacidad</th>
+                        <th>Propietario</th>
+                        <th>Barrio</th>
+                        <th>Tipo</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in viviendas %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{v.idVivienda}}</td>
+                        <td>{{v.direccion}}</td>
+                        <td>{{v.capacidad}}</td>
+                        <td>{{v.propietario}}</td>
+                        <td>{{v.barrio}}</td>
+                        <td>{{v.tipoVivienda}}</td>
+                        <td><a href="edicionPersona/{{v.idVivienda}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarPersona/{{v.idVivienda}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

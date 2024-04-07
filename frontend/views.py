@@ -21,20 +21,23 @@ def registrarPersona(request):
     messages.success(request, '¡Persona registrado!')
     return redirect('/')
 
-def edicionPersona(request, codigo):
-    persona = Persona.objects.get(codigo=codigo)
+def edicionPersona(request,idPersona):
+    persona = Persona.objects.get(idPersona=idPersona)
     return render(request, "edicionPersona.html", {"persona": persona})
 
-def editarPersona(request):
-    idPersona = request.POST['txtCodigo']
-    nombre = request.POST['txtNombre']
-    creditos = request.POST['numCreditos']
-
+def editarPersona(request, idPersona):
+    nombre = request.POST['Nombre']#dentro de las comillas debe ir el name no el id
+    apellido = request.POST['Apellido']
+    telefono = request.POST['telefono']
+    sexo = request.POST['sexo']
+    edad = request.POST['edad']
     persona = Persona.objects.get(idPersona=idPersona)
     persona.nombre = nombre
-    persona.creditos = creditos
+    persona.apellido = apellido
+    persona.telefono = telefono
+    persona.sexo = sexo
+    persona.edad = edad
     persona.save()
-
     messages.success(request, '¡Persona actualizado!')
 
     return redirect('/')

@@ -8,18 +8,26 @@
         <h2>Edición de Persona</h2>
         <div class="card">
             <div class="card-body">
-                <form action="/editarPersona/" method="POST">{% csrf_token %}
+                <form action="/editarPersona/{{persona.idPersona}}/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtCodigo" name="txtCodigo" value="{{persona.codigo}}" class="form-control" placeholder="Código"
-                            minlength="6" maxlength="6" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{persona.nombre}}" class="form-control" placeholder="Nombre"
+                        <input type="text" id="txtNombre" name="Nombre" value="{{persona.nombre}}" class="form-control" placeholder="Nombre"
                             maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="numCreditos" name="numCreditos" value="{{persona.creditos}}" class="form-control" min="1" max="9"
-                            value="1" required>
+                        <input type="text" id="txtApellido" name="Apellido" value="{{persona.apellido}}" class="form-control" placeholder="Apellido"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txttelefono" name="telefono" value="{{persona.telefono}}" class="form-control" placeholder="telefono"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtsexo" name="sexo" value="{{persona.sexo}}" class="form-control" placeholder="sexo"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtedad" name="edad" value="{{persona.edad}}" class="form-control" placeholder="edad"
+                            maxlength="50" required>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>

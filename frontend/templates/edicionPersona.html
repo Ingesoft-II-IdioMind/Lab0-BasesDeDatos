@@ -18,15 +18,19 @@
                             maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txttelefono" name="telefono" value="{{persona.telefono}}" class="form-control" placeholder="telefono"
+                        <input type="number" id="txttelefono" name="telefono" value="{{persona.telefono}}" class="form-control" placeholder="telefono"
                             maxlength="50" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtsexo" name="sexo" value="{{persona.sexo}}" class="form-control" placeholder="sexo"
-                            maxlength="50" required>
+                        <select id="selectSexo" name="sexo" class="form-select" required>
+                            <option value="M" {% if persona.sexo == 'M' %} selected {% endif %}>Masculino</option>
+                            <option value="F" {% if persona.sexo == 'F' %} selected {% endif %}>Femenino</option>
+                            <option value="N" {% if persona.sexo == 'N' %} selected {% endif %}>No especificado</option>
+                        </select>
                     </div>
+                    
                     <div class="form-group">
-                        <input type="text" id="txtedad" name="edad" value="{{persona.edad}}" class="form-control" placeholder="edad"
+                        <input type="number" id="txtedad" name="edad" value="{{persona.edad}}" class="form-control" placeholder="edad"
                             maxlength="50" required>
                     </div>
                     <div class="form-group">

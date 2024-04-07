@@ -13,10 +13,10 @@ def registrarPersona(request):
     nombre = request.POST['txtNombre']
     apellido = request.POST['txtApellido']
     telefono = request.POST['txtTelefono']
-    sexo = request.POST['txtSexo']
+    sexo = request.POST.get('selectSexo')
     edad = request.POST['txtEdad']
 
-    persona = Persona.objects.create(
+    Persona.objects.create(
         nombre=nombre, apellido=apellido, telefono=telefono, sexo=sexo, edad=edad)
     messages.success(request, '¡Persona registrado!')
     return redirect('/')
@@ -39,7 +39,6 @@ def editarPersona(request, idPersona):
     persona.edad = edad
     persona.save()
     messages.success(request, '¡Persona actualizado!')
-
     return redirect('/')
 
 def eliminarPersona(request, idPersona):

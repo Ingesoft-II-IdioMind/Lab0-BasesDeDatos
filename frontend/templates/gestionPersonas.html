@@ -26,20 +26,23 @@
                             maxlength="50">
                     </div>
                     <div class="form-group mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Telefono</label>
-                        <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" placeholder="Nombre"
-                            maxlength="50" required>
+                        <label for="txtTelefono" class="form-label">Teléfono</label>
+                        <input type="number" id="txtTelefono" name="txtTelefono" class="form-control" placeholder="Teléfono" maxlength="50" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Sexo</label>
-                        <input type="text" id="txtSexo" name="txtSexo" class="form-control" placeholder="Nombre"
-                            maxlength="50" required>
+                        <label for="selectSexo" class="form-label">Sexo</label>
+                        <select id="selectSexo" name="selectSexo" class="form-select" required>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="N">No especificado</option>
+                        </select>
                     </div>
+                    
                     <div class="form-group mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Edad</label>
-                        <input type="text" id="txtEdad" name="txtEdad" class="form-control" placeholder="Nombre"
-                            maxlength="50" required>
+                        <label for="txtEdad" class="form-label">Edad</label>
+                        <input type="number" id="txtEdad" name="txtEdad" class="form-control" placeholder="Edad" required>
                     </div>
+                    
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
                     </div>

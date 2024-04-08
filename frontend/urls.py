@@ -23,8 +23,8 @@ urlpatterns = [
     path('gestionMunicipios/editarMunicipio/', views.editarMunicipio),
     path('gestionMunicipios/eliminarMunicipio/<idMunicipio>', views.eliminarMunicipio),
     path('gestionDepartamentos/', views.gestionDepartamentos),
-    path('gestionDepartamentos/registrarDepartamento/', views.registrarDepartamento),
-    path('gestionDepartamentos/edicionDepartamento/<idDepartamento>', views.edicionDepartamento),
+    path('registrarDepartamento/', views.registrarDepartamento),
+    path('gestionDepartamentos/edicionDepartamento/<int:idDepartamento>', views.edicionDepartamento),
     path('gestionDepartamentos/editarDepartamento/', views.editarDepartamento),
-    path('gestionDepartamentos/eliminarDepartamento/<idDepartamento>', views.eliminarDepartamento),
+    path('gestionDepartamentos/eliminarDepartamento/<int:idDepartamento>', views.eliminarDepartamento),
 ]

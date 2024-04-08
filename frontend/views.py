@@ -155,17 +155,17 @@ def eliminarMunicipio(request, idMunicipio):
 
 def gestionDepartamentos(request):
     departamentos = Departamento.objects.all()
+    personas = Persona.objects.all()
     messages.success(request, '¡Viviendas listadas!')
-    return render(request, 'gestionDepartamentos.html',{'departamentos':departamentos})
+    return render(request, 'gestionDepartamentos.html',{'departamentos':departamentos,'personas':personas})
 
 def registrarDepartamento(request):
     nombreDepartamento = request.POST['txtNombre']
     poblacion = request.POST['txtPoblacion']
-    # idGobernador = request.POST['txtGobernador']
     idGobernador = Persona.objects.get(idPersona=request.POST['txtGobernador'])
 
     departamento = Departamento.objects.create(
-        nombreDepartamento=nombreDepartamento, poblacion=poblacion, idGobernador=idGobernador)
+        nombreDepartamento=nombreDepartamento, poblacion=poblacion, idGobernador = idGobernador)
     messages.success(request, '¡Departamento registrado!')
     return redirect('/gestionDepartamentos')
 

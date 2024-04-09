@@ -15,6 +15,19 @@
         <div class="card">
             <div class="card-body">
                 <form action="/registrarPersona/" method="POST" class="">{% csrf_token %}
+
+                    <div class="form-group">
+                        <select id="txtDocumento" name="txtDocumento" class="form-select"  placeholder="Tipo de documento" required>
+                            <option value="CC" {% if persona.tipo_de_documentacion == 'CC' %} selected {% endif %}>Cédula de ciudadania</option>
+                            <option value="TI" {% if persona.tipo_de_documentacion == 'TI' %} selected {% endif %}>Tarjeta de Identidad</option>
+                            <option value="CE" {% if persona.tipo_de_documentacion == 'CE' %} selected {% endif %}>Cédula de Extranjería</option>
+                            <option value="N" {% if persona.tipo_de_documentacion == 'N' %} selected {% endif %}>No especificado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="txtNumeroIdentificacion" name="txtNumeroIdentificacion" value="{{persona.idPersona}}" class="form-control" placeholder="Numero de identificación"
+                            maxlength="50" required>
+                    </div>
                     <div class="form-group mb-3">
                         <label for="exampleInputEmail1" class="form-label">Nombre</label>
                         <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre"

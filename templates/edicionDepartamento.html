@@ -1,0 +1,40 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de Personas {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Persona</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarDepartamento/{{Departamento.idDepartamento}}/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtNombre" name="txtNombre" value="{{Departamento.nombreDepartamento}}" class="form-control" placeholder="Nombre"
+                            maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" id="numPoblacion" name="numPoblacion" value="{{Departamento.poblacion}}" class="form-control" placeholder="Poblacion"
+                            maxlength="50" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Gobernador</label>
+                        <select id="txtGobernador" name="txtGobernador" class="form-control">
+                            <option value="2">Desconocido</option>
+                            {% for persona in personas %}
+                                <option value="{{persona.idPersona}}">{{persona.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                      </div> 
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

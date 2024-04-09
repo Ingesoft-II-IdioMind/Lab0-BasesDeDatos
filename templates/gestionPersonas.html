@@ -17,6 +17,7 @@
                 <form action="/registrarPersona/" method="POST" class="">{% csrf_token %}
 
                     <div class="form-group">
+                        <label for="txtTelefono" class="form-label">Tipo de documento</label>
                         <select id="txtDocumento" name="txtDocumento" class="form-select"  placeholder="Tipo de documento" required>
                             <option value="CC" {% if persona.tipo_de_documentacion == 'CC' %} selected {% endif %}>Cédula de ciudadania</option>
                             <option value="TI" {% if persona.tipo_de_documentacion == 'TI' %} selected {% endif %}>Tarjeta de Identidad</option>
@@ -25,6 +26,7 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label class="form-label">Número de identificación</label>
                         <input type="number" id="txtNumeroIdentificacion" name="txtNumeroIdentificacion" value="{{persona.idPersona}}" class="form-control" placeholder="Numero de identificación"
                             maxlength="50" required>
                     </div>
@@ -55,6 +57,12 @@
                         <label for="txtEdad" class="form-label">Edad</label>
                         <input type="number" id="txtEdad" name="txtEdad" class="form-control" placeholder="Edad" required>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Documento de cabeza de familia</label>
+                        <input type="number" id="txtCabezaIdentificacion" name="txtCabezaIdentificacion" value="{{persona.idResposable}}" class="form-control" placeholder="Numero de identificación"
+                            maxlength="50" required>
+                    </div>
                     
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
@@ -70,6 +78,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Tipo Documento</th>
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -85,13 +94,14 @@
                     {% for c in personas %}
                     <tr>
                         <td>{{forloop.counter}}</td>
+                        <td>{{c.tipo_de_documento}}</td>
                         <td>{{c.idPersona}}</td>
                         <td>{{c.nombre}}</td>
                         <td>{{c.apellido}}</td>
                         <td>{{c.telefono}}</td>
                         <td>{{c.sexo}}</td>
                         <td>{{c.edad}}</td>
-                        <td>{{c.edad}}</td>
+                        <td>{{c.idResponsable.idPersona}}</td>
                         <td>{{c.edad}}</td>
                         <td><a href="edicionPersona/{{c.idPersona}}" class="btn btn-info">Editar</a></td>
                         <td><a href="eliminarPersona/{{c.idPersona}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>

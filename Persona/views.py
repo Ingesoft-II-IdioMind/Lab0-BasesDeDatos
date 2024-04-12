@@ -14,6 +14,18 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Persona
 
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from .models import Persona
+
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from .models import Persona
+
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from .models import Persona
+
 def registrarPersona(request):
     if request.method == 'POST':
         idPersona = request.POST['txtNumeroIdentificacion']
@@ -25,24 +37,14 @@ def registrarPersona(request):
         edad = request.POST['txtEdad']
         id_responsable = request.POST['txtCabezaIdentificacion']
 
-        if id_responsable:
-            try:
-                id_responsable_directo = int(id_responsable)
-                responsable_directo = Persona.objects.get(pk=id_responsable_directo)
-            except (ValueError, Persona.DoesNotExist):
-                # Si el ID del responsable directo no existe, asignar None
-                id_responsable_directo = None
-        else:
-                # Si el ID del responsable directo existe, establecer la relación de clave externa
-            id_responsable_directo = responsable_directo
-
         if Persona.objects.filter(idPersona=idPersona).exists():
             messages.error(request, 'El ID ya está en uso.')
-            return redirect(f'/')
-
-        Persona.objects.create(
+            return redirect('/')
+        
+        # Crear la persona sin un responsable
+        persona = Persona.objects.create(
             idPersona=idPersona,
-            idResponsable = responsable_directo,
+            idResponsable=None,  # No hay responsable, ya que es la cabeza de familia
             tipo_de_documento=tipo_de_documento,
             nombre=nombre,
             apellido=apellido,
@@ -50,10 +52,26 @@ def registrarPersona(request):
             sexo=sexo,
             edad=edad
         )
+
+        if id_responsable and id_responsable == idPersona:
+            # Si el ID del responsable directo es igual al ID de la persona misma,
+            # establecer la relación de llave foránea a sí mismo
+            persona.idResponsable = persona
+            persona.save()
+        elif id_responsable:
+            try:
+                id_responsable_directo = int(id_responsable)
+                responsable_directo = Persona.objects.get(pk=id_responsable_directo)
+                persona.idResponsable = responsable_directo
+                persona.save()
+            except (ValueError, Persona.DoesNotExist):
+                pass  # Si no se puede encontrar el responsable directo, no hacer nada
+
         messages.success(request, '¡Persona registrada!')
         return redirect('/')
     else:
         return render(request, 'gestionPersonas.html')
+
 
 
 def edicionPersona(request,idPersona):

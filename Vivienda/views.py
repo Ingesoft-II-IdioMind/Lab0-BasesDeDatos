@@ -1,39 +1,85 @@
 from django.shortcuts import render, redirect
-from .models import Vivienda
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Vivienda,TipoVivienda
+from Barrio.models import Barrio
 from django.contrib import messages
 # Create your views here.
 def gestionViviendas(request):
     viviendas = Vivienda.objects.all()
+    barrios = Barrio.objects.all()
+    tipoviviendas = TipoVivienda.objects.all()
     messages.success(request, '¡Viviendas listadas!')
-    return render(request, 'gestionViviendas.html',{'viviendas':viviendas})
+    return render(request, 'gestionViviendas.html',{'viviendas':viviendas,'barrios':barrios,'tipoviviendas':tipoviviendas})
 
 def registrarVivienda(request):
-    direccion = request.POST['txtDireccion']
- #   capacidad = request.POST['txtCapacidad']
- #   persona = Persona.objects.create(
- #       direccion=direccion, capacidad=capacidad)
- #   messages.success(request, '¡Vivienda registrado!')
- #   return redirect('/gestionViviendas')
+    idBarrio = request.POST.get('txtidBarrio')
+    idtipovivienda = request.POST.get('txtidTipovivienda')
+    direccion = request.POST.get('txtDireccion')
+    capacidad = request.POST.get('txtCapacidad')
 
-def edicionVivienda(request, codigo):
- #   persona = Vivienda.objects.get(codigo=codigo)
- #   return render(request, "edicionVivienda.html", {"persona": persona})
-    pass
+    tipovivienda = None
+    barrio = None
 
-def editarVivienda(request):
-    idVivienda = request.POST['txtCodigo']
-    nombre = request.POST['txtNombre']
-    creditos = request.POST['numCreditos']
-  #  persona = Vivienda.objects.get(idVivienda=idVivienda)
-  #  persona.nombre = nombre
-  #  persona.creditos = creditos
-  #  persona.save()
+    try:
+        tipovivienda = TipoVivienda.objects.get(idTipoVivienda=idtipovivienda)
+    except  ObjectDoesNotExist:
+        pass
+    try:
+        barrio = Barrio.objects.get(idBarrio=idBarrio)
+    except  ObjectDoesNotExist:
+        pass
+
+    vivienda = Vivienda.objects.create(
+        idBarrio=barrio,
+        idTipo_vivienda=tipovivienda,
+        direccion=direccion,
+        capacidad=capacidad,
+    )
+    vivienda.save()
+
+    messages.success(request, '¡Vivienda registrada!')
+    return redirect('/gestionViviendas')
+ 
+
+def edicionVivienda(request, idVivienda):
+    viviendas = Vivienda.objects.get(idVivienda=idVivienda)
+    barrios = Barrio.objects.all()
+    tipoviviendas = TipoVivienda.objects.all()
+    messages.success(request, '¡Viviendas listadas!')
+    return render(request, 'edicionVivienda.html',{'viviendas':viviendas,'barrios':barrios,'tipoviviendas':tipoviviendas})
+
+
+def editarVivienda(request,idVivienda):
+    idBarrio = request.POST.get('txtidBarrio')
+    idtipovivienda = request.POST.get('txtidTipovivienda')
+    direccion = request.POST.get('txtDireccion')
+    capacidad = request.POST.get('txtCapacidad')
+
+    tipovivienda = None
+    barrio = None
+
+    try:
+        tipovivienda = TipoVivienda.objects.get(idTipoVivienda=idtipovivienda)
+    except  ObjectDoesNotExist:
+        pass
+    try:
+        barrio = Barrio.objects.get(idBarrio=idBarrio)
+    except  ObjectDoesNotExist:
+        pass
+
+
+    vivienda = Vivienda.objects.get(idVivienda=idVivienda)
+    vivienda.idBarrio = barrio
+    vivienda.idTipo_vivienda = tipovivienda
+    vivienda.direccion = direccion
+    vivienda.capacidad = capacidad
+    vivienda.save()
     messages.success(request, '¡Vivienda actualizado!')
-    return redirect('/')
+    return redirect('/gestionViviendas')
 
 def eliminarVivienda(request, idVivienda):
-   # persona = Vivienda.objects.get(idVivienda=idVivienda)
-   # persona.delete()
+    vivienda = Vivienda.objects.get(idVivienda=idVivienda)
+    vivienda.delete()
     messages.success(request, '¡Vivienda eliminado!')
 
-    return redirect('/')
+    return redirect('/gestionViviendas')

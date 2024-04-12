@@ -15,14 +15,33 @@
         <div class="card">
             <div class="card-body">
                 <form action="/registrarVivienda/" method="POST" class="">{% csrf_token %}
+                    
                     <div class="form-group mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Direccion</label>
-                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre"
+                        <label class="form-label">Barrio</label>
+                        <select id="txtidBarrio" name="txtidBarrio" class="form-control">
+                            {% for d in barrios %}
+                                <option value="{{ d.idBarrio}}">{{d.nombreBarrio}}</option>
+                            {% endfor %}
+                        </select>
+                      </div> 
+
+                      <div class="form-group mb-3">
+                        <label class="form-label">Tipo Vivienda</label>
+                        <select id="txtidTipovivienda" name="txtidTipovivienda" class="form-control">
+                            {% for d in tipoviviendas %}
+                                <option value="{{ d.idTipoVivienda}}">{{d.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                      </div> 
+                    
+                    <div class="form-group mb-3">
+                        <label class="form-label">Direccion</label>
+                        <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" placeholder="Direccion "
                             maxlength="50" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Capacidad</label>
-                        <input type="text" id="txtApellido" name="txtApellido" class="form-control" placeholder="Apellido"
+                        <label class="form-label">Capacidad</label>
+                        <input type="text" id="txtCapacidad" name="txtCapacidad" class="form-control" placeholder="Capacidad"
                             maxlength="50">
                     </div>
                     <div class="d-grid gap-2">
@@ -33,7 +52,7 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-        <h1 style="color: #E67320">Listado de Personas</h1>
+        <h1 style="color: #E67320">Listado de Viviendas</h1>
         <div class="table-responsive py-2">
             <table class="table table-striped">
                 <thead>
@@ -42,7 +61,6 @@
                         <th>Id</th>
                         <th>Direccion</th>
                         <th>Capacidad</th>
-                        <th>Propietario</th>
                         <th>Barrio</th>
                         <th>Tipo</th>
                         <th colspan="2">Opciones</th>
@@ -55,11 +73,10 @@
                         <td>{{v.idVivienda}}</td>
                         <td>{{v.direccion}}</td>
                         <td>{{v.capacidad}}</td>
-                        <td>{{v.propietario}}</td>
-                        <td>{{v.barrio}}</td>
-                        <td>{{v.tipoVivienda}}</td>
-                        <td><a href="edicionPersona/{{v.idVivienda}}" class="btn btn-info">Editar</a></td>
-                        <td><a href="eliminarPersona/{{v.idVivienda}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                        <td>{{v.idBarrio.nombreBarrio}}</td>
+                        <td>{{v.idTipo_vivienda.nombre}}</td>
+                        <td><a href="/edicionVivienda/{{v.idVivienda}}/" class="btn btn-info">Editar</a></td>
+                        <td><a href="/eliminarVivienda/{{v.idVivienda}}/" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

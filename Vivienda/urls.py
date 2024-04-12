@@ -3,8 +3,8 @@ from django.urls import path
 
 urlpatterns = [
     path('gestionViviendas/', views.gestionViviendas),
-    path('gestionViviendas/registrarVivienda/', views.registrarVivienda),
-    path('gestionViviendas/edicionVivienda/<idVivienda>', views.edicionVivienda),
-    path('gestionViviendas/editarVivienda/', views.editarVivienda),
-    path('gestionViviendas/eliminarVivienda/<idVivienda>', views.eliminarVivienda),
+    path('registrarVivienda/', views.registrarVivienda),
+    path('edicionVivienda/<int:idVivienda>/', views.edicionVivienda),
+    path('editarVivienda/<int:idVivienda>/', views.editarVivienda),
+    path('eliminarVivienda/<int:idVivienda>/', views.eliminarVivienda),
 ]

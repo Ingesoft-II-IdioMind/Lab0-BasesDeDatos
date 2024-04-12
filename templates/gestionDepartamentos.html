@@ -21,15 +21,11 @@
             <input type="number" min="0" max="100000" id="txtPoblacion" name="txtPoblacion" class="form-control" placeholder="100" maxlength="50"/>
           </div>
           
-           <div class="form-group mb-3">
-            <label class="form-label">Gobernador</label>
-            <select id="txtGobernador" name="txtGobernador" class="form-control">
-                <option value="2">Desconocido</option>
-                {% for persona in personas %}
-                    <option value="{{ persona.idPersona}}">{{persona.nombre}}</option>
-                {% endfor %}
-            </select>
-          </div> 
+          <div class="form-group">
+            <label class="form-label">Documento del Gobernador</label>
+            <input type="number" id="txtGobernador" name="txtGobernador" value="{{departamentos.idGobernador}}" class="form-control" placeholder="Numero de identificación"
+                maxlength="50">
+        </div>
 
           <div class="d-grid gap-2">
             <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>

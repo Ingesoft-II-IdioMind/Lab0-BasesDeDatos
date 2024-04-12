@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Persona
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
 
 
 
@@ -14,17 +13,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Persona
 
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from .models import Persona
-
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from .models import Persona
-
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from .models import Persona
 
 def registrarPersona(request):
     if request.method == 'POST':

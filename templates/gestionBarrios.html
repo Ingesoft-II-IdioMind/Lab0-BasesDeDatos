@@ -7,62 +7,36 @@
       <strong class="text-dark">{{ message }}</strong>
     </div>
     {% endfor %} {% endif %}
-    <h2 style="color: #e67320">Crear Barrio</h2>
     <div class="card">
       <div class="card-body">
-        <form action="/registrarDepartamento/" method="POST" class="">
-          {% csrf_token %}
-          <div class="form-group mb-3">
-            <label class="form-label">Nombre</label>
-            <input
-              type="text"
-              id="txtNombre"
-              name="txtNombre"
-              class="form-control"
-              placeholder="Nombre"
-              maxlength="50"
-              required
-            />
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">Poblacion</label>
-            <input
-              type="number"
-              min="0"
-              max="100000"
-              id="txtPoblacion"
-              name="txtPoblacion"
-              class="form-control"
-              placeholder="100"
-              maxlength="50"
-            />
-          </div>
-           <div class="form-group mb-3">
-            <label class="form-label">Alcalde</label>
-            <select id="txtGobernador" name="txtGobernador" class="form-control">
-                <option value="2">Desconocido</option>
-                {% for persona in personas %}
-                    <option value="{{ persona.idPersona }}">{{ persona.nombre }}</option>
-                {% endfor %}
-            </select>
-          </div> 
-          <div class="form-group mb-3">
-            <label class="form-label">Departamento</label>
-            <select id="txtGobernador" name="txtGobernador" class="form-control">
-                {% for d in departamentos %}
-                    <option value="{{ d.idDepartamento }}">{{d.nombreDepartamento}}</option>
-                {% endfor %}
-            </select>
-          </div> 
-          <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
-        </div>
-        </form>
+          <form action="/registrarBarrio/" method="POST">{% csrf_token %}
+              <div class="form-group">
+                  <input type="text" id="txtNombreBarrio" name="txtNombreBarrio" value="{{barrios.nombreBarrio}}" class="form-control" placeholder="nombre barrio"
+                     >
+              </div>
+              <div class="form-group">
+                  <input type="number" id="txtPoblacion" name="txtPoblacion" value="{{barrios.poblacion}}" class="form-control" placeholder="poblacion"
+                      maxlength="50">
+              </div>
+
+              <div class="form-group mb-3">
+                  <label class="form-label">Municipio</label>
+                  <select id="txtMunicipio" name="txtMunicipio" class="form-control">
+                      {% for d in municipios %}
+                          <option value="{{d.idMunicipio}}">{{d.nombreMunicipio}}</option>
+                      {% endfor %}
+                  </select>
+                </div> 
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+              </div>
+          </form>
       </div>
-    </div>
+  </div>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-    <h1 style="color: #e67320">Listado municipios</h1>
+    <h1 style="color: #e67320">Listado Barrios</h1>
     <div class="table-responsive py-2">
       <table class="table table-striped">
         <thead>
@@ -71,28 +45,31 @@
             <th>Id</th>
             <th>Nombre</th>
             <th>Población</th>
-            <th>Gobernador</th>
+            <th>Municipio</th>
             <th colspan="2">Opciones</th>
           </tr>
         </thead>
         <tbody>
-          {% for d in departamentos %}
+          {% for d in barrios %}
           <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{d.idDepartamento}}</td>
-            <td>{{d.nombreDepartamento}}</td>
+            <td>{{d.idBarrio}}</td>
+            <td>{{d.nombreBarrio}}</td>
             <td>{{d.poblacion}}</td>
-            <td>{{d.gobernador}}</td>
+            <td>{{d.idMunicipio.nombreMunicipio}}</td>
+            
+            
+            
             <td>
               <a
-                href="edicionDepartamento/{{d.idDepartamento}}"
+                href="/edicionBarrio/{{d.idBarrio}}"
                 class="btn btn-info"
                 >Editar</a
               >
             </td>
             <td>
               <a
-                href="eliminarDepartamento/{{d.idDepartamento}}"
+                href="/eliminarBarrio/{{d.idBarrio}}"
                 class="btn btn-danger btnEliminacion"
                 >Eliminar</a
               >

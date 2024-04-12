@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Municipio
 from django.contrib import messages
@@ -101,8 +100,8 @@ def editarMunicipio(request, idMunicipio):
 
 def eliminarMunicipio(request, idMunicipio):
     municipio = Municipio.objects.get(idMunicipio=idMunicipio)
-    if municipio.municipio_set.exists():
-        municipio.municipio_set.update(idDepartamento=None)
+    if municipio.barrio_set.exists():
+        municipio.barrio_set.update(idMunicipio=None)
     municipio.delete()
     messages.success(request, '¡Municipio eliminado!')
 

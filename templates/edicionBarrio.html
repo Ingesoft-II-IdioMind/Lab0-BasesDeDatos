@@ -8,19 +8,24 @@
         <h2>Edición de Persona</h2>
         <div class="card">
             <div class="card-body">
-                <form action="/editarPersona/" method="POST">{% csrf_token %}
+                <form action="/editarBarrio/{{barrios.idBarrio}}" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <input type="text" id="txtCodigo" name="txtCodigo" value="{{persona.codigo}}" class="form-control" placeholder="Código"
-                            minlength="6" maxlength="6" readonly required>
+                        <input type="text" id="txtNombreBarrio" name="txtNombreBarrio" value="{{barrios.nombreBarrio}}" class="form-control" placeholder="nombre barrio">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{persona.nombre}}" class="form-control" placeholder="Nombre"
-                            maxlength="50" required>
+                        <input type="number" id="txtPoblacion" name="txtPoblacion" value="{{barrios.poblacion}}" class="form-control" placeholder="poblacion"
+                            maxlength="50">
                     </div>
-                    <div class="form-group">
-                        <input type="text" id="numCreditos" name="numCreditos" value="{{persona.creditos}}" class="form-control" min="1" max="9"
-                            value="1" required>
-                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Municipio</label>
+                        <select id="txtMunicipio" name="txtMunicipio" class="form-control">
+                            {% for d in municipios %}
+                                <option value="{{d.idMunicipio}}">{{d.nombreMunicipio}}</option>
+                            {% endfor %}
+                        </select>
+                      </div> 
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                     </div>

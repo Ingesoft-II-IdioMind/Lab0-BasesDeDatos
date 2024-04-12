@@ -5,28 +5,54 @@
 {% block body %}
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2>Edición de Persona</h2>
-        <div class="card">
-            <div class="card-body">
-                <form action="/editarPersona/" method="POST">{% csrf_token %}
-                    <div class="form-group">
-                        <input type="text" id="txtCodigo" name="txtCodigo" value="{{persona.codigo}}" class="form-control" placeholder="Código"
-                            minlength="6" maxlength="6" readonly required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="txtNombre" name="txtNombre" value="{{persona.nombre}}" class="form-control" placeholder="Nombre"
-                            maxlength="50" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="numCreditos" name="numCreditos" value="{{persona.creditos}}" class="form-control" min="1" max="9"
-                            value="1" required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
-                    </div>
-                </form>
-            </div>
+        <h2 style="color: #e67320">Editar Municipio</h2>
+    <div class="card">
+      <div class="card-body">
+        <form action="/editarMunicipio/{{municipios.idMunicipio}}/" method="POST" class="">
+          {% csrf_token %}
+          <div class="form-group ">
+            <label class="form-label">Nombre</label>
+            <input type="text" id="txtNombreMunicipio" name="txtNombreMunicipio" value="{{municipios.nombreMunicipio}}" class="form-control" placeholder="nombre de municipio" maxlength="50"/>
+          </div>
+
+          <div class="form-group">
+            <label class="form-laabel">Poblacion</label>
+            <input type="number" id="txtPoblacion" name="txtPoblacion" value="{{municipios.poblacion}}" class="form-control" placeholder="Numero de identificación"
+                maxlength="50">
         </div>
+
+          <div class="form-group">
+            <label class="form-label">area total</label>
+            <input type="number" id="txtArea" name="txtArea" value="{{municipios.area}}" class="form-control" placeholder="Numero de identificación"
+                maxlength="50">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Presupuesto</label>
+          <input type="number" id="txtPresupuesto" name="txtPresupuesto" value="{{municipios.presupuesto}}" class="form-control" placeholder="presupuesto"
+              maxlength="50">
+      </div>
+           
+      <div class="form-group mb-3">
+        <label class="form-label">Departamento</label>
+        <select id="txtDepartamento" name="txtDepartamento" class="form-control">
+            {% for d in departamentos %}
+                <option value="{{d.idDepartamento}}">{{d.nombreDepartamento}}</option>
+            {% endfor %}
+        </select>
+      </div>
+
+          <div class="form-group">
+            <label class="form-label">Documento del Alcalde</label>
+            <input type="number" id="txtAlcalde" name="txtAlcalde" value="{{municipios.idAlcalde}}" class="form-control" placeholder="Numero de identificación"
+                maxlength="50">
+        </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
+        </div>
+        </form>
+      </div>
+    </div>
     </div>
 </div>
 {% endblock %}

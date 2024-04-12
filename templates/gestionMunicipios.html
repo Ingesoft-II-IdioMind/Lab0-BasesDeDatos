@@ -10,50 +10,44 @@
     <h2 style="color: #e67320">Crear Municipio</h2>
     <div class="card">
       <div class="card-body">
-        <form action="/registrarDepartamento/" method="POST" class="">
+        <form action="/registrarMunicipio/" method="POST" class="">
           {% csrf_token %}
           <div class="form-group mb-3">
             <label class="form-label">Nombre</label>
-            <input
-              type="text"
-              id="txtNombre"
-              name="txtNombre"
-              class="form-control"
-              placeholder="Nombre"
-              maxlength="50"
-              required
-            />
+            <input type="text"             id="txtNombreMunicipio"              name="txtNombreMunicipio"     value="{{municipios.nombreMunicipio}}"          class="form-control"             placeholder="nombre de municipio" maxlength="50"/>
           </div>
-          <div class="form-group mb-3">
+
+          <div class="form-group">
             <label class="form-label">Poblacion</label>
-            <input
-              type="number"
-              min="0"
-              max="100000"
-              id="txtPoblacion"
-              name="txtPoblacion"
-              class="form-control"
-              placeholder="100"
-              maxlength="50"
-            />
-          </div>
-           <div class="form-group mb-3">
-            <label class="form-label">Alcalde</label>
-            <select id="txtGobernador" name="txtGobernador" class="form-control">
-                <option value="2">Desconocido</option>
-                {% for persona in personas %}
-                    <option value="{{ persona.idPersona }}">{{ persona.nombre }}</option>
-                {% endfor %}
-            </select>
-          </div> 
+            <input type="number" id="txPoblacion" name="txtPoblacion" value="{{municipios.poblacion}}" class="form-control" placeholder="Numero de identificación"
+                maxlength="50">
+        </div>
+
+          <div class="form-group">
+            <label class="form-label">area total</label>
+            <input type="number" id="txtArea" name="txtArea" value="{{municipios.area}}" class="form-control" placeholder="Numero de identificación"
+                maxlength="50">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Presupuesto</label>
+          <input type="number" id="txtPresupuesto" name="txtPresupuesto" value="{{municipios.Presupuesto}}" class="form-control" placeholder="presupuesto"
+              maxlength="50">
+      </div>
+           
           <div class="form-group mb-3">
             <label class="form-label">Departamento</label>
-            <select id="txtGobernador" name="txtGobernador" class="form-control">
+            <select id="txtDepartamento" name="txtDepartamento" class="form-control">
                 {% for d in departamentos %}
                     <option value="{{ d.idDepartamento }}">{{d.nombreDepartamento}}</option>
                 {% endfor %}
             </select>
           </div> 
+          <div class="form-group">
+            <label class="form-label">Documento del Alcalde</label>
+            <input type="number" id="txtAlcalde" name="txtAlcalde" value="{{municipios.idAlcalde}}" class="form-control" placeholder="Numero de identificación"
+                maxlength="50">
+        </div>
           <div class="d-grid gap-2">
             <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
         </div>
@@ -71,28 +65,34 @@
             <th>Id</th>
             <th>Nombre</th>
             <th>Población</th>
-            <th>Gobernador</th>
+            <th>Area total</th>
+            <th>Presupuesto</th>
+            <th>Departamento</th>
+            <th>Alcalde</th>
             <th colspan="2">Opciones</th>
           </tr>
         </thead>
         <tbody>
-          {% for d in departamentos %}
+          {% for d in municipios %}
           <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{d.idDepartamento}}</td>
-            <td>{{d.nombreDepartamento}}</td>
+            <td>{{d.idMunicipio}}</td>
+            <td>{{d.nombreMunicipio}}</td>
             <td>{{d.poblacion}}</td>
-            <td>{{d.gobernador}}</td>
+            <td>{{d.area}}</td>
+            <td>{{d.presupuesto}}</td>
+            <td>{{d.idDepartamento}}</td>
+            <td>{{d.idAlcalde}}</td>
             <td>
               <a
-                href="edicionDepartamento/{{d.idDepartamento}}"
+                href="/edicionMunicipio/{{d.idMunicipio}}/"
                 class="btn btn-info"
                 >Editar</a
               >
             </td>
             <td>
               <a
-                href="eliminarDepartamento/{{d.idDepartamento}}"
+                href="/eliminarMunicipio/{{d.idMunicipio}}/"
                 class="btn btn-danger btnEliminacion"
                 >Eliminar</a
               >

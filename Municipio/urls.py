@@ -4,8 +4,8 @@ from django.urls import path
 
 urlpatterns = [
     path('gestionMunicipios/', views.gestionMunicipios),
-    path('gestionMunicipios/registrarMunicipio/', views.registrarMunicipio),
-    path('gestionMunicipios/edicionMunicipio/<idMunicipio>', views.edicionMunicipio),
-    path('gestionMunicipios/editarMunicipio/', views.editarMunicipio),
-    path('gestionMunicipios/eliminarMunicipio/<idMunicipio>', views.eliminarMunicipio),
+    path('registrarMunicipio/', views.registrarMunicipio),
+    path('edicionMunicipio/<int:idMunicipio>/', views.edicionMunicipio),
+    path('editarMunicipio/<int:idMunicipio>/', views.editarMunicipio),
+    path('eliminarMunicipio/<int:idMunicipio>/',views.eliminarMunicipio),
 ]

@@ -5,7 +5,7 @@
 {% block body %}
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2>Edición de Persona</h2>
+        <h2>Edición de Departamento</h2>
         <div class="card">
             <div class="card-body">
                 <form action="/editarDepartamento/{{Departamento.idDepartamento}}/" method="POST">{% csrf_token %}
@@ -19,15 +19,7 @@
                             maxlength="50" required>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label class="form-label">Gobernador</label>
-                        <select id="txtGobernador" name="txtGobernador" class="form-control">
-                            <option value="2">Desconocido</option>
-                            {% for persona in personas %}
-                                <option value="{{persona.idPersona}}">{{persona.nombre}}</option>
-                            {% endfor %}
-                        </select>
-                      </div> 
+
 
                       <div class="form-group">
                         <label class="form-label">Documento del Gobernador</label>

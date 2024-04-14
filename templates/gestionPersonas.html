@@ -63,6 +63,15 @@
                         <input type="number" id="txtCabezaIdentificacion" name="txtCabezaIdentificacion" value="{{persona.idResposable}}" class="form-control" placeholder="Numero de identificación"
                             maxlength="50" required>
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Direccion Vivienda</label>
+                        <select id="txtRelacionvivienda" name="txtRelacionvivienda" class="form-control">
+                            {% for d in viviendas %}
+                                <option value="{{d.idVivienda}}">{{d.direccion}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
                     
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
@@ -86,7 +95,6 @@
                         <th>Sexo</th>
                         <th>Edad</th>
                         <th>Cabeza_familia</th>
-                        <th>Vivienda</th>
                         <th colspan="2">Opciones</th>
                     </tr>
                 </thead>
@@ -101,8 +109,9 @@
                         <td>{{c.telefono}}</td>
                         <td>{{c.sexo}}</td>
                         <td>{{c.edad}}</td>
-                        <td>{{c.idResponsable.idPersona}}</td>
-                        <td>{{c.edad}}</td>
+                        <td>{{c.idResponsable.nombre}}</td>
+                        <!-- Acceder a la vivienda de la persona a través de la tabla intermedia -->
+
                         <td><a href="edicionPersona/{{c.idPersona}}" class="btn btn-info">Editar</a></td>
                         <td><a href="eliminarPersona/{{c.idPersona}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     </tr>
@@ -111,6 +120,8 @@
             </table>
         </div>
     </div>
+    
+    
 </div>
 
 {% endblock %}

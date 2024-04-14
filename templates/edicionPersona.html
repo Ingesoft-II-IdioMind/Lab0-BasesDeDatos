@@ -56,6 +56,14 @@
                         <label class="form-label">Documento de cabeza de familia</label>
                         <input type="number" id="txtCabezaIdentificacion" name="txtCabezaIdentificacion" value="{{persona.idResponsable.idPersona}}" class="form-control" placeholder="Numero de identificación" maxlength="50" required>
                     </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Direccion Vivienda</label>
+                        <select id="txtRelacionvivienda" name="txtRelacionvivienda" class="form-control">
+                            {% for d in viviendas %}
+                                <option value="{{d.idVivienda}}">{{d.direccion}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
                     
                     <div class="form-group">
                         <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>

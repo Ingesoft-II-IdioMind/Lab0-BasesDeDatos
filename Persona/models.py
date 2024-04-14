@@ -26,5 +26,3 @@ class Persona(models.Model):
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES,default='N')
     edad = models.CharField(max_length=30, default='Not specified')
 
-    def __str__(self):
-        return self.nombre + ' ' + self.apellido

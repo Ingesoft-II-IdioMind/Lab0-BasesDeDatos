@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
+from .utils import setResidencia
 from .models import Persona
+from Vivienda.models import Vivienda,PersonaVivienda
 from django.contrib import messages
 
 
 
 def home(request):
     personas = Persona.objects.all()
-    messages.success(request, '¡Personas listadas!')
-    return render(request, 'gestionPersonas.html',{'personas':personas})
+    viviendas = Vivienda.objects.all()
+    contexto = {'personas': personas,'viviendas':viviendas}
+    return render(request, 'gestionPersonas.html', contexto)
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Persona
 
 
 def registrarPersona(request):
@@ -24,15 +24,15 @@ def registrarPersona(request):
         sexo = request.POST.get('selectSexo')
         edad = request.POST['txtEdad']
         id_responsable = request.POST['txtCabezaIdentificacion']
+        idVivienda = request.POST['txtRelacionvivienda']
 
         if Persona.objects.filter(idPersona=idPersona).exists():
             messages.error(request, 'El ID ya está en uso.')
             return redirect('/')
-        
+              
         # Crear la persona sin un responsable
         persona = Persona.objects.create(
             idPersona=idPersona,
-            idResponsable=None,  # No hay responsable, ya que es la cabeza de familia
             tipo_de_documento=tipo_de_documento,
             nombre=nombre,
             apellido=apellido,
@@ -40,10 +40,8 @@ def registrarPersona(request):
             sexo=sexo,
             edad=edad
         )
-
+        setResidencia(idPersona,idVivienda)
         if id_responsable and id_responsable == idPersona:
-            # Si el ID del responsable directo es igual al ID de la persona misma,
-            # establecer la relación de llave foránea a sí mismo
             persona.idResponsable = persona
             persona.save()
         elif id_responsable:
@@ -53,8 +51,7 @@ def registrarPersona(request):
                 persona.idResponsable = responsable_directo
                 persona.save()
             except (ValueError, Persona.DoesNotExist):
-                pass  # Si no se puede encontrar el responsable directo, no hacer nada
-
+                pass  
         messages.success(request, '¡Persona registrada!')
         return redirect('/')
     else:
@@ -64,7 +61,9 @@ def registrarPersona(request):
 
 def edicionPersona(request,idPersona):
     persona = Persona.objects.get(idPersona=idPersona)
-    return render(request, "edicionPersona.html", {"persona": persona})
+    viviendas = Vivienda.objects.all()
+    
+    return render(request, "edicionPersona.html", {"persona": persona,'viviendas':viviendas})
 
 def editarPersona(request, idPersona):
     tipo_de_documento = request.POST['txtDocumento']
@@ -75,6 +74,7 @@ def editarPersona(request, idPersona):
     sexo = request.POST['sexo']
     edad = request.POST['edad']
     id_responsable = request.POST.get('txtCabezaIdentificacion')
+    idVivienda = request.POST.get('txtRelacionvivienda')
 
     responsable_directo = None
     if id_responsable:
@@ -89,6 +89,16 @@ def editarPersona(request, idPersona):
         return redirect(f'/edicionPersona/{idPersona}/')
 
     persona = Persona.objects.get(idPersona=idPersona)
+
+    relacion = PersonaVivienda.objects.filter(idPersona=persona)
+    if PersonaVivienda.objects.filter(idPersona=persona,residente = True ,propietario = True).exists():
+       relacion=PersonaVivienda.objects.filter(idPersona=persona,residente = True ,propietario = True)
+       relacion.residente = False
+       relacion.idPersona = nuevo_idPersona
+    elif PersonaVivienda.objects.filter(idPersona=persona,residente = True ,propietario = False).exists():
+        ant=PersonaVivienda.objects.filter(idPersona=persona,residente = True ,propietario = False)
+        ant.delete()
+        setResidencia(nuevo_idPersona,idVivienda)
 
     persona.idPersona = nuevo_idPersona
     persona.tipo_de_documento = tipo_de_documento
@@ -106,6 +116,11 @@ def editarPersona(request, idPersona):
 
 def eliminarPersona(request, idPersona):
     persona = Persona.objects.get(idPersona=idPersona)
+    if persona.departamento_set.exists():
+        persona.departamento_set.update(idGobernador=None)
+    if persona.municipio_set.exists():
+        persona.municipio_set.update(idAlcalde=None)
+    
     persona.delete()
     messages.success(request, '¡Persona eliminado!')
 

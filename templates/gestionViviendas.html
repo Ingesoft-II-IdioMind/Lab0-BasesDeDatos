@@ -44,6 +44,12 @@
                         <input type="text" id="txtCapacidad" name="txtCapacidad" class="form-control" placeholder="Capacidad"
                             maxlength="50">
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">identificacion Propietario</label>
+                        <input type="text" value="{{personas.idPersona}}" id="txtPropietario" name="txtPropietario" class="form-control" placeholder="Propietario"
+                            >
+                    </div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
                     </div>
@@ -74,7 +80,7 @@
                         <td>{{v.direccion}}</td>
                         <td>{{v.capacidad}}</td>
                         <td>{{v.idBarrio.nombreBarrio}}</td>
-                        <td>{{v.idTipo_vivienda.nombre}}</td>
+                        <td>{{v.idTipo_vivienda.nombre}}</td>  
                         <td><a href="/edicionVivienda/{{v.idVivienda}}/" class="btn btn-info">Editar</a></td>
                         <td><a href="/eliminarVivienda/{{v.idVivienda}}/" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     </tr>

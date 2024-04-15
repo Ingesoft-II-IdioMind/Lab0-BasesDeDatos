@@ -5,7 +5,7 @@
 {% block body %}
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2 style="color: #E67320">Listado viviendas</h2>
+        <h2 style="color: #E67320">Editar vivienda</h2>
         <div class="card">
             <div class="card-body">
                 <form action="/editarVivienda/{{viviendas.idVivienda}}/" method="POST" class="">{% csrf_token %}
@@ -36,15 +36,20 @@
                     <div class="form-group mb-3">
                         <label class="form-label">Capacidad</label>
                         <input type="text" id="txtCapacidad" name="txtCapacidad" class="form-control" placeholder="Capacidad"
-                            maxlength="50">
+                            maxlength="50" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="form-label">identificacion Propietario</label>
+                        <label class="form-label">Identificacion propietario</label>
                         <input type="text" id="txtPropietario" name="txtPropietario" class="form-control" placeholder="Propietario"
-                            >
+                            required>
                     </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
+                    <div class="d-grid gap-2 caja-guardar">
+                        <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
+                    </div>
+                   
+                      </form>
+                      <div class="d-grid gap-2 caja-cancelar">
+                        <button class="btn btn-block boton-cancelar" onclick="goToPage('/gestionMunicipios')">Cancelar</button>
                     </div>
                 </form>
             </div>

@@ -5,20 +5,19 @@
     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
         {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong class="text-dark">{{ message }}</strong>
-        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
         {% endfor %}
         {% endif %}
         <h2 style="color: #E67320">Agregar persona</h2>
         <div class="card">
             <div class="card-body">
                 <form action="/registrarPersona/" method="POST" class="">{% csrf_token %}
-
                     <div class="form-group">
                         <label for="txtTelefono" class="form-label">Tipo de documento</label>
-                        <select id="txtDocumento" name="txtDocumento" class="form-select"  placeholder="Tipo de documento" required>
+                        <select id="txtDocumento" name="txtDocumento" class="form-select form-control"  placeholder="Tipo de documento" required>
                             <option value="CC" {% if persona.tipo_de_documentacion == 'CC' %} selected {% endif %}>Cédula de ciudadania</option>
                             <option value="TI" {% if persona.tipo_de_documentacion == 'TI' %} selected {% endif %}>Tarjeta de Identidad</option>
                             <option value="CE" {% if persona.tipo_de_documentacion == 'CE' %} selected {% endif %}>Cédula de Extranjería</option>
@@ -46,7 +45,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="selectSexo" class="form-label">Sexo</label>
-                        <select id="selectSexo" name="selectSexo" class="form-select" required>
+                        <select id="selectSexo" name="selectSexo" class="form-select form-control" required>
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
                             <option value="N">No especificado</option>
@@ -73,8 +72,8 @@
                         </select>
                       </div>
                     
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
+                      <div class="d-grid gap-2 caja-guardar">
+                        <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
                     </div>
                 </form>
             </div>
@@ -112,8 +111,8 @@
                         <td>{{c.idResponsable.nombre}}</td>
                         <!-- Acceder a la vivienda de la persona a través de la tabla intermedia -->
 
-                        <td><a href="edicionPersona/{{c.idPersona}}" class="btn btn-info">Editar</a></td>
-                        <td><a href="eliminarPersona/{{c.idPersona}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                        <td><a href="edicionPersona/{{c.idPersona}}" class="btn btn-editar">Editar</a></td>
+                        <td><a href="eliminarPersona/{{c.idPersona}}" class="btn btn-eliminar">Eliminar</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

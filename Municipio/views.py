@@ -10,7 +10,7 @@ def gestionMunicipios(request):
     municipios = Municipio.objects.all()
     persona = Persona.objects.all()
     departamento = Departamento.objects.all()
-    messages.success(request, '¡Viviendas listadas!')
+    messages.success(request, '¡Municipios listados!')
     return render(request, 'gestionMunicipios.html',{'municipios':municipios,'persona':persona,'departamentos':departamento})
 
 def registrarMunicipio(request):
@@ -50,7 +50,7 @@ def edicionMunicipio(request, idMunicipio):
     municipios = Municipio.objects.get(idMunicipio=idMunicipio)
     persona = Persona.objects.all()
     departamento = Departamento.objects.all()
-    messages.success(request, '¡Viviendas listadas!')
+    messages.success(request, '¡Municipios listados!')
     return render(request, 'edicionMunicipio.html',{'municipios':municipios,'persona':persona,'departamentos':departamento})
 
 

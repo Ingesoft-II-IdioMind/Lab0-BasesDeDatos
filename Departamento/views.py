@@ -8,7 +8,7 @@ from Persona.models import Persona
 def gestionDepartamentos(request):
     departamentos = Departamento.objects.all()
     persona = Persona.objects.all()
-    messages.success(request, '¡Viviendas listadas!')
+    messages.success(request, '¡Departamentos listados!')
     return render(request, 'gestionDepartamentos.html',{'departamentos':departamentos,'persona':persona})
 
 

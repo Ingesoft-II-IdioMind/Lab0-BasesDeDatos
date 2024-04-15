@@ -2,42 +2,42 @@
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
     {% if messages %} {% for message in messages %}
-    <div class="alert alert-dismissible alert-success">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong class="text-dark">{{ message }}</strong>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>{{ message }}</strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %} {% endif %}
-    <h2 style="color: #e67320">Crear Municipio</h2>
+    <h2 style="color: #e67320">Agregar Municipio</h2>
     <div class="card">
       <div class="card-body">
         <form action="/registrarMunicipio/" method="POST" class="">
           {% csrf_token %}
           <div class="form-group mb-3">
             <label class="form-label">Nombre</label>
-            <input type="text"             id="txtNombreMunicipio"              name="txtNombreMunicipio"     value="{{municipios.nombreMunicipio}}"          class="form-control"             placeholder="nombre de municipio" maxlength="50"/>
+            <input type="text" required id="txtNombreMunicipio"              name="txtNombreMunicipio"     value="{{municipios.nombreMunicipio}}"          class="form-control"             placeholder="nombre de municipio" maxlength="50"/>
           </div>
 
           <div class="form-group">
             <label class="form-label">Poblacion</label>
-            <input type="number" id="txPoblacion" name="txtPoblacion" value="{{municipios.poblacion}}" class="form-control" placeholder="Numero de identificación"
+            <input type="number" required id="txPoblacion" name="txtPoblacion" value="{{municipios.poblacion}}" class="form-control" placeholder="Numero de identificación"
                 maxlength="50">
         </div>
 
           <div class="form-group">
-            <label class="form-label">area total</label>
-            <input type="number" id="txtArea" name="txtArea" value="{{municipios.area}}" class="form-control" placeholder="Numero de identificación"
+            <label class="form-label">Area total (km)</label>
+            <input type="number" required id="txtArea" name="txtArea" value="{{municipios.area}}" class="form-control" placeholder="Numero de identificación"
                 maxlength="50">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Presupuesto</label>
-          <input type="number" id="txtPresupuesto" name="txtPresupuesto" value="{{municipios.Presupuesto}}" class="form-control" placeholder="presupuesto"
+          <label class="form-label">Presupuesto (Millones)</label>
+          <input type="number" required id="txtPresupuesto" name="txtPresupuesto" value="{{municipios.Presupuesto}}" class="form-control" placeholder="presupuesto"
               maxlength="50">
       </div>
            
           <div class="form-group mb-3">
             <label class="form-label">Departamento</label>
-            <select id="txtDepartamento" name="txtDepartamento" class="form-control">
+            <select id="txtDepartamento" required name="txtDepartamento" class="form-control">
                 {% for d in departamentos %}
                     <option value="{{ d.idDepartamento }}">{{d.nombreDepartamento}}</option>
                 {% endfor %}
@@ -45,12 +45,12 @@
           </div> 
           <div class="form-group">
             <label class="form-label">Documento del Alcalde</label>
-            <input type="number" id="txtAlcalde" name="txtAlcalde" value="{{municipios.idAlcalde}}" class="form-control" placeholder="Numero de identificación"
+            <input type="number" required id="txtAlcalde" name="txtAlcalde" value="{{municipios.idAlcalde}}" class="form-control" placeholder="Numero de identificación"
                 maxlength="50">
         </div>
-          <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
-        </div>
+        <div class="d-grid gap-2 caja-guardar">
+          <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
+      </div>
         </form>
       </div>
     </div>
@@ -86,14 +86,14 @@
             <td>
               <a
                 href="/edicionMunicipio/{{d.idMunicipio}}/"
-                class="btn btn-info"
+                class="btn btn-editar"
                 >Editar</a
               >
             </td>
             <td>
               <a
                 href="/eliminarMunicipio/{{d.idMunicipio}}/"
-                class="btn btn-danger btnEliminacion"
+                class="btn btn-eliminar"
                 >Eliminar</a
               >
             </td>

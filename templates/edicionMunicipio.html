@@ -5,7 +5,7 @@
 {% block body %}
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2 style="color: #e67320">Editar Municipio</h2>
+        <h2 style="color: #e67320">Editar municipio</h2>
     <div class="card">
       <div class="card-body">
         <form action="/editarMunicipio/{{municipios.idMunicipio}}/" method="POST" class="">
@@ -16,19 +16,19 @@
           </div>
 
           <div class="form-group">
-            <label class="form-laabel">Poblacion</label>
+            <label class="form-label">Población</label>
             <input type="number" id="txtPoblacion" name="txtPoblacion" value="{{municipios.poblacion}}" class="form-control" placeholder="Numero de identificación"
                 maxlength="50">
         </div>
 
           <div class="form-group">
-            <label class="form-label">area total</label>
+            <label class="form-label">Area total (km)</label>
             <input type="number" id="txtArea" name="txtArea" value="{{municipios.area}}" class="form-control" placeholder="Numero de identificación"
                 maxlength="50">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Presupuesto</label>
+          <label class="form-label">Presupuesto (Millones)</label>
           <input type="number" id="txtPresupuesto" name="txtPresupuesto" value="{{municipios.presupuesto}}" class="form-control" placeholder="presupuesto"
               maxlength="50">
       </div>
@@ -47,10 +47,14 @@
             <input type="number" id="txtAlcalde" name="txtAlcalde" value="{{municipios.idAlcalde}}" class="form-control" placeholder="Numero de identificación"
                 maxlength="50">
         </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-block text-white text-bold" style="background-color: #e67320; font-weight: bold" >Guardar</button>
-        </div>
+        <div class="d-grid gap-2 caja-guardar">
+          <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
+      </div>
+     
         </form>
+        <div class="d-grid gap-2 caja-cancelar">
+          <button class="btn btn-block boton-cancelar" onclick="goToPage('/gestionMunicipios')">Cancelar</button>
+      </div>
       </div>
     </div>
     </div>

@@ -17,7 +17,6 @@ import pymysql
 import dotenv
 import dj_database_url
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -99,7 +98,7 @@ if DEVELOPMENT_MODE is True:
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'laboratorio_cero',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': 'Duvanlucasss',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         }

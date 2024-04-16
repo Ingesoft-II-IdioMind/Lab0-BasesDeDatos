@@ -53,9 +53,10 @@
                     </div>
                     
                     <div class="form-group mb-3">
-                        <label for="txtEdad" class="form-label">Edad</label>
-                        <input type="number" id="txtEdad" name="txtEdad" class="form-control" placeholder="Edad" required>
+                        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="form-control" placeholder="Fecha de Nacimiento" required>
                     </div>
+                    
 
                     <div class="form-group">
                         <label class="form-label">Documento de cabeza de familia</label>
@@ -92,8 +93,9 @@
                         <th>Apellido</th>
                         <th>Telefono</th>
                         <th>Sexo</th>
-                        <th>Edad</th>
-                        <th>Cabeza_familia</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Cabeza de familia</th>
+                        <th>Direccion de vivienda</th> <!-- Nueva columna para mostrar la vivienda -->
                         <th colspan="2">Opciones</th>
                     </tr>
                 </thead>
@@ -107,10 +109,10 @@
                         <td>{{c.apellido}}</td>
                         <td>{{c.telefono}}</td>
                         <td>{{c.sexo}}</td>
-                        <td>{{c.edad}}</td>
+                        <td>{{c.fecha_nacimiento}}</td>
                         <td>{{c.idResponsable.nombre}}</td>
                         <!-- Acceder a la vivienda de la persona a través de la tabla intermedia -->
-
+                        <td>{{ c.personavivienda_set.first.idVivienda.direccion }}</td> <!-- Modifica esta línea según tus modelos -->
                         <td><a href="edicionPersona/{{c.idPersona}}" class="btn btn-editar">Editar</a></td>
                         <td><a href="eliminarPersona/{{c.idPersona}}" class="btn btn-eliminar">Eliminar</a></td>
                     </tr>
@@ -119,6 +121,7 @@
             </table>
         </div>
     </div>
+    
     
     
 </div>

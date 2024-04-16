@@ -9,7 +9,8 @@ from django.contrib import messages
 def home(request):
     personas = Persona.objects.all()
     viviendas = Vivienda.objects.all()
-    contexto = {'personas': personas,'viviendas':viviendas}
+    residentes = Persona.objects.filter(personavivienda__residente=True)
+    contexto = {'personas': personas,'viviendas':viviendas,'residentes':residentes}
     return render(request, 'gestionPersonas.html', contexto)
 
 
@@ -22,7 +23,7 @@ def registrarPersona(request):
         apellido = request.POST['txtApellido']
         telefono = request.POST['txtTelefono']
         sexo = request.POST.get('selectSexo')
-        edad = request.POST['txtEdad']
+        fecha_nacimiento = request.POST['fechaNacimiento']
         id_responsable = request.POST['txtCabezaIdentificacion']
         idVivienda = request.POST['txtRelacionvivienda']
 
@@ -38,7 +39,7 @@ def registrarPersona(request):
             apellido=apellido,
             telefono=telefono,
             sexo=sexo,
-            edad=edad
+            fecha_nacimiento=fecha_nacimiento
         )
         setResidencia(idPersona,idVivienda)
         if id_responsable and id_responsable == idPersona:
@@ -72,7 +73,7 @@ def editarPersona(request, idPersona):
     apellido = request.POST['Apellido']
     telefono = request.POST['telefono']
     sexo = request.POST['sexo']
-    edad = request.POST['edad']
+    fecha_nacimiento = request.POST['fechaNacimiento']
     id_responsable = request.POST.get('txtCabezaIdentificacion')
     idVivienda = request.POST.get('txtRelacionvivienda')
 
@@ -106,7 +107,7 @@ def editarPersona(request, idPersona):
     persona.apellido = apellido
     persona.telefono = telefono
     persona.sexo = sexo
-    persona.edad = edad
+    persona.fecha_nacimiento = fecha_nacimiento
     persona.idResponsable = responsable_directo
 
     persona.save()

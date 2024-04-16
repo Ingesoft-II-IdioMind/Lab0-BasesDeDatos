@@ -10,9 +10,10 @@ def gestionViviendas(request):
     viviendas = Vivienda.objects.all()
     persona = Persona.objects.all()
     barrios = Barrio.objects.all()
+    propietarios = Persona.objects.filter(personavivienda__propietario=True)
     tipoviviendas = TipoVivienda.objects.all() 
     messages.success(request, '¡Viviendas listadas!')
-    return render(request, 'gestionViviendas.html',{'viviendas':viviendas,'barrios':barrios,'tipoviviendas':tipoviviendas,'personas':persona})
+    return render(request, 'gestionViviendas.html',{'viviendas':viviendas,'barrios':barrios,'tipoviviendas':tipoviviendas,'personas':persona,'propietarios':propietarios})
 
 def registrarVivienda(request):
     idBarrio = request.POST.get('txtidBarrio')

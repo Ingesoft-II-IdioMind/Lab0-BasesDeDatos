@@ -11,11 +11,8 @@ def gestionViviendas(request):
     persona = Persona.objects.all()
     barrios = Barrio.objects.all()
     tipoviviendas = TipoVivienda.objects.all() 
-
-    for vivienda in viviendas:
-        persona_viviendas_dict = PersonaVivienda.objects.filter(idVivienda=vivienda,propietario=True)
     messages.success(request, '¡Viviendas listadas!')
-    return render(request, 'gestionViviendas.html',{'viviendas':viviendas,'barrios':barrios,'tipoviviendas':tipoviviendas,'personas':persona,'persona_viviendas_dict':persona_viviendas_dict})
+    return render(request, 'gestionViviendas.html',{'viviendas':viviendas,'barrios':barrios,'tipoviviendas':tipoviviendas,'personas':persona})
 
 def registrarVivienda(request):
     idBarrio = request.POST.get('txtidBarrio')

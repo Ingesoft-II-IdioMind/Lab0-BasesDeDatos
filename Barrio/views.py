@@ -14,7 +14,7 @@ def gestionBarrios(request):
 def registrarBarrio(request):
     nombre_barrio = request.POST.get('txtNombreBarrio')
     poblacion = request.POST.get('txtPoblacion')
-    id_municipio = request.POST.get('txtMunicipio')
+    id_municipio = request.POST.get('txtidMunicipio')
 
     municipio = None
 
@@ -41,7 +41,7 @@ def edicionBarrio(request, idBarrio):
 def editarBarrio(request,idBarrio):
     nombre_barrio = request.POST['txtNombreBarrio']
     poblacion = request.POST['txtPoblacion']
-    id_municipio = request.POST.get('txtMunicipio')
+    id_municipio = request.POST.get('txtidMunicipio')
 
     municipio = None
 

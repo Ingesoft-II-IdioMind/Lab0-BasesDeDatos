@@ -16,14 +16,39 @@
                   min="1" max="1000000">
               </div>
 
+                
               <div class="form-group mb-3">
-                  <label class="form-label">Municipio</label>
-                  <select required id="txtMunicipio" name="txtMunicipio" class="form-control">
-                      {% for d in municipios %}
-                          <option value="{{d.idMunicipio}}">{{d.nombreMunicipio}}</option>
-                      {% endfor %}
-                  </select>
-                </div> 
+                <label class="form-label">Municipio del barrio</label>
+                <input type="text" id="txtBusquedaMunicipio" class="form-control" placeholder="Buscar Municipio">
+                <div id="selectWrapper" class="form-group mb-3" style="display: none;"> <!-- Utiliza un contenedor para el select y ocúltalo por defecto -->
+                    <label class="form-label">Seleccionar Municipio</label>
+                    <select id="txtidMunicipio" name="txtidMunicipio" class="form-control">
+                        {% for municipio in municipios %}
+                            <option value="{{municipio.idMunicipio}}" data-id="{{municipio.idMunicipio}}">{{municipio.nombreMunicipio}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            
+            
+            <div class="modal fade" id="modalBusquedaMunicipio" tabindex="-1" aria-labelledby="modalBusquedaMunicipioLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalBusquedaMunicipioLabel">Buscar Municipio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <input type="text" id="txtBusquedaMunicipioModal" class="form-control" placeholder="Buscar Municipio">
+                    <div id="opcionesMunicipioModal" class="opciones-municipio"></div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
 
                 <div class="d-grid gap-2 caja-guardar">
                   <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
@@ -78,5 +103,70 @@
     </div>
   </div>
 </div>
+<style>
+  .opcion-municipio {
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  }
+
+  .opcion-municipio:hover {
+      background-color: #f4f4f4;
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+      // Función para actualizar el valor del select de barrio
+      function actualizarTxtRelacionvivienda(valor) {
+          $('#txtidMunicipio').val(valor);
+      }
+  
+      // Evento para manejar la selección de un barrio en el modal
+      $('#opcionesMunicipioModal').on('click', '.opcion-municipio', function() {
+          var municipioSeleccionado = $(this).text();
+          var idMunicipioSeleccionado = $(this).data('id');
+          $('#txtBusquedaMunicipio').val(municipioSeleccionado);
+          actualizarTxtRelacionvivienda(idMunicipioSeleccionado);
+          $('#modalBusquedaMunicipio').modal('hide'); // Ocultar el modal
+      });
+  
+      // Evento para manejar la búsqueda de barrios en el modal
+      $('#txtBusquedaMunicipioModal').on('input', function() {
+          var searchText = $(this).val().toLowerCase();
+          var opciones = $('#opcionesMunicipioModal');
+          opciones.empty(); // Limpiar opciones anteriores
+          var count = 0; // Contador de resultados mostrados
+          if (searchText.length > 0) {
+              $('#txtidMunicipio option').each(function() {
+                  var optionText = $(this).text().toLowerCase();
+                  if (optionText.includes(searchText)) {
+                      var opcion = $('<div class="opcion-municipio"></div>').text(optionText).data('id', $(this).val());
+                      opciones.append(opcion);
+                      count++;
+                  }
+                  if (count >= 10) {
+                      return false; // Salir del bucle cuando se alcance el máximo de 10 resultados
+                  }
+              });
+          }
+      });
+  
+      // Evento para mostrar el modal al hacer clic en el campo de búsqueda del formulario principal
+      $('#txtBusquedaMunicipio').click(function() {
+          $('#modalBusquedaMunicipio').modal('show');
+      });
+  
+      // Evento para manejar el envío del formulario principal
+      $('form').submit(function() {
+          var municipioSeleccionado = $('#txtBusquedaMunicipio').val();
+          var idMunicipioSeleccionado = $('#txtidMunicipio').val();
+          if (!municipioSeleccionado || !idMunicipioSeleccionado) {
+              alert('Por favor, seleccione un barrio.');
+              return false; // Evitar que se envíe el formulario si falta el barrio
+          }
+      });
+  });
+</script>
 
 {% endblock %}

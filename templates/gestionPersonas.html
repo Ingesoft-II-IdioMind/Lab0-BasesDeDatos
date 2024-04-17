@@ -65,18 +65,24 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Direccion Vivienda</label>
-                        <select id="txtRelacionvivienda" name="txtRelacionvivienda" class="form-control">
-                            {% for d in viviendas %}
-                                <option value="{{d.idVivienda}}">{{d.direccion}}</option>
-                            {% endfor %}
-                        </select>
-                      </div>
-                    
+                        <label class="form-label">Dirección de la vivienda</label>
+                        <input type="text" id="txtBusquedaDireccion" class="form-control" placeholder="Buscar dirección de vivienda">
+                        <div id="opcionesDirecciones" class="opciones-direcciones"></div> <!-- Div para mostrar opciones filtradas -->
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Dirección de la vivienda</label>
+                        <input type="text" id="txtBusquedaDireccion" class="form-control" placeholder="Buscar dirección de vivienda">
+                        <div id="opcionesDirecciones" class="opciones-direcciones"></div> <!-- Div para mostrar opciones filtradas -->
+                    </div>
+
+
                       <div class="d-grid gap-2 caja-guardar">
                         <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
                     </div>
                 </form>
+                <div id="ventanaBusqueda" class="ventana-busqueda">
+                    <!-- Contenido de la ventana de búsqueda -->
+                </div>
             </div>
         </div>
     </div>
@@ -123,7 +129,41 @@
     </div>
     
     
-    
-</div>
 
+</div>
+<script>
+    $(document).ready(function() {
+        $('#txtBusquedaDireccion').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+            var opciones = $('#ventanaBusqueda');
+            opciones.empty(); // Limpiar contenido anterior
+            if (searchText.length > 0) {
+                $('#txtRelacionvivienda option').each(function() {
+                    var optionText = $(this).text().toLowerCase();
+                    if (optionText.includes(searchText)) {
+                        var opcion = $('<div class="opcion-direccion"></div>').text(optionText);
+                        opcion.click(function() {
+                            var direccionSeleccionada = $(this).text();
+                            $('#txtBusquedaDireccion').val(direccionSeleccionada);
+                            $('#txtRelacionvivienda').val($(this).parent().find('option').filter(function() {
+                                return $(this).text().toLowerCase() === direccionSeleccionada.toLowerCase();
+                            }).val());
+                            $('#ventanaBusqueda').hide();
+                        });
+                        opciones.append(opcion);
+                    }
+                });
+                opciones.show(); // Mostrar la ventana de búsqueda
+            } else {
+                opciones.hide(); // Ocultar la ventana de búsqueda si no hay texto de búsqueda
+            }
+            // Posicionar la ventana de búsqueda sobre el campo de búsqueda
+            opciones.css({
+                top: $('#txtBusquedaDireccion').position().top + $('#txtBusquedaDireccion').outerHeight(),
+                left: $('#txtBusquedaDireccion').position().left,
+                width: $('#txtBusquedaDireccion').outerWidth()
+            });
+        });
+    });
+</script>
 {% endblock %}

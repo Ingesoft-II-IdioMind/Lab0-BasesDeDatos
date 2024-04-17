@@ -3,6 +3,7 @@ from .utils import setResidencia
 from .models import Persona
 from Vivienda.models import Vivienda,PersonaVivienda
 from django.contrib import messages
+from django.http import JsonResponse
 
 
 
@@ -13,7 +14,12 @@ def home(request):
     contexto = {'personas': personas,'viviendas':viviendas,'residentes':residentes}
     return render(request, 'gestionPersonas.html', contexto)
 
-
+def buscar_direcciones(request):
+    if request.method == 'GET':
+        direccion = request.GET.get('direccion', '')
+        direcciones = Vivienda.objects.filter(direccion__icontains=direccion).values_list('direccion', flat=True)
+        return JsonResponse({'direcciones': list(direcciones)})
+    return JsonResponse({})
 
 def registrarPersona(request):
     if request.method == 'POST':

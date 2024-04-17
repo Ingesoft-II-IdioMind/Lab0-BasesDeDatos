@@ -100,7 +100,7 @@ if DEVELOPMENT_MODE is True:
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'laboratorio_cero',
         'USER': 'root',
-        'PASSWORD': 'Duvanlucasss',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         }

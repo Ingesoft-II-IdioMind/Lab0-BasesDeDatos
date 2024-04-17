@@ -14,12 +14,6 @@ def home(request):
     contexto = {'personas': personas,'viviendas':viviendas,'residentes':residentes}
     return render(request, 'gestionPersonas.html', contexto)
 
-def buscar_direcciones(request):
-    if request.method == 'GET':
-        direccion = request.GET.get('direccion', '')
-        direcciones = Vivienda.objects.filter(direccion__icontains=direccion).values_list('direccion', flat=True)
-        return JsonResponse({'direcciones': list(direcciones)})
-    return JsonResponse({})
 
 def registrarPersona(request):
     if request.method == 'POST':
@@ -31,12 +25,12 @@ def registrarPersona(request):
         sexo = request.POST.get('selectSexo')
         fecha_nacimiento = request.POST['fechaNacimiento']
         id_responsable = request.POST['txtCabezaIdentificacion']
-        idVivienda = request.POST['txtRelacionvivienda']
+        idVivienda = request.POST.get('txtRelacionvivienda')
 
         if Persona.objects.filter(idPersona=idPersona).exists():
             messages.error(request, 'El ID ya está en uso.')
             return redirect('/')
-              
+        print(idVivienda)
         # Crear la persona sin un responsable
         persona = Persona.objects.create(
             idPersona=idPersona,

@@ -9,13 +9,37 @@
                 <form action="/registrarVivienda/" method="POST" class="">{% csrf_token %}
                     
                     <div class="form-group mb-3">
-                        <label class="form-label">Barrio</label>
-                        <select id="txtidBarrio" name="txtidBarrio" class="form-control">
-                            {% for d in barrios %}
-                                <option value="{{ d.idBarrio}}">{{d.nombreBarrio}}</option>
-                            {% endfor %}
-                        </select>
-                      </div> 
+                        <label class="form-label">Barrio de la vivienda</label>
+                        <input type="text" id="txtBusquedaBarrio" class="form-control" placeholder="Buscar Barrio">
+                        <div id="selectWrapper" class="form-group mb-3" style="display: none;"> <!-- Utiliza un contenedor para el select y ocúltalo por defecto -->
+                            <label class="form-label">Seleccionar Barrio</label>
+                            <select id="txtidBarrio" name="txtidBarrio" class="form-control">
+                                {% for barrio in barrios %}
+                                    <option value="{{barrio.idBarrio}}" data-id="{{barrio.idBarrio}}">{{barrio.nombreBarrio}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="modal fade" id="modalBusquedaBarrio" tabindex="-1" aria-labelledby="modalBusquedaBarrioLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="modalBusquedaBarrioLabel">Buscar barrio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <input type="text" id="txtBusquedaBarrioModal" class="form-control" placeholder="Buscar barrio">
+                            <div id="opcionesBArrioModal" class="opciones-barrio"></div>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
                       <div class="form-group mb-3">
                         <label class="form-label">Tipo Vivienda</label>
@@ -85,5 +109,71 @@
     </div>
     
 </div>
+<style>
+    .opcion-barrio {
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .opcion-barrio:hover {
+        background-color: #f4f4f4;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Función para actualizar el valor del select de barrio
+        function actualizarTxtRelacionvivienda(valor) {
+            $('#txtidBarrio').val(valor);
+        }
+    
+        // Evento para manejar la selección de un barrio en el modal
+        $('#opcionesBArrioModal').on('click', '.opcion-barrio', function() {
+            var barrioSeleccionado = $(this).text();
+            var idBarrioSeleccionado = $(this).data('id');
+            $('#txtBusquedaBarrio').val(barrioSeleccionado);
+            actualizarTxtRelacionvivienda(idBarrioSeleccionado);
+            $('#modalBusquedaBarrio').modal('hide'); // Ocultar el modal
+        });
+    
+        // Evento para manejar la búsqueda de barrios en el modal
+        $('#txtBusquedaBarrioModal').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+            var opciones = $('#opcionesBArrioModal');
+            opciones.empty(); // Limpiar opciones anteriores
+            var count = 0; // Contador de resultados mostrados
+            if (searchText.length > 0) {
+                $('#txtidBarrio option').each(function() {
+                    var optionText = $(this).text().toLowerCase();
+                    if (optionText.includes(searchText)) {
+                        var opcion = $('<div class="opcion-barrio"></div>').text(optionText).data('id', $(this).val());
+                        opciones.append(opcion);
+                        count++;
+                    }
+                    if (count >= 10) {
+                        return false; // Salir del bucle cuando se alcance el máximo de 10 resultados
+                    }
+                });
+            }
+        });
+    
+        // Evento para mostrar el modal al hacer clic en el campo de búsqueda del formulario principal
+        $('#txtBusquedaBarrio').click(function() {
+            $('#modalBusquedaBarrio').modal('show');
+        });
+    
+        // Evento para manejar el envío del formulario principal
+        $('form').submit(function() {
+            var barrioSeleccionado = $('#txtBusquedaBarrio').val();
+            var idBarrioSeleccionado = $('#txtidBarrio').val();
+            if (!barrioSeleccionado || !idBarrioSeleccionado) {
+                alert('Por favor, seleccione un barrio.');
+                return false; // Evitar que se envíe el formulario si falta el barrio
+            }
+        });
+    });
+</script>
+
 
 {% endblock %}

@@ -36,7 +36,7 @@
             <th>Id</th>
             <th>Nombre</th>
             <th>Población</th>
-            <th>Gobernador</th> 
+            <th>Identificación del gobernador</th> 
             <th colspan="2">Opciones</th>
           </tr>
         </thead>
@@ -47,7 +47,7 @@
             <td>{{d.idDepartamento}}</td>
             <td>{{d.nombreDepartamento}}</td>
             <td>{{d.poblacion}}</td>
-            <td>{{d.idGobernador.idPersona}}</td>
+            <td>{{d.idGobernador.idPersona|default:"Desconocido"}}</td>
             <td>
               <a
                 href="/edicionDepartamento/{{d.idDepartamento}}/"

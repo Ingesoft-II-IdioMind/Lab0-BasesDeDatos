@@ -24,5 +24,6 @@ class Persona(models.Model):
     apellido = models.CharField(max_length=50)
     telefono = models.CharField(max_length=10, default='Not specified')
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES,default='N')
-    edad = models.CharField(max_length=30, default='Not specified')
+    fecha_nacimiento = models.DateField(auto_now_add=True,null=True, blank=True)
+   
 

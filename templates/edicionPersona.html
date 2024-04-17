@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label class="form-label">Numero de identificacion</label>
                         <input type="number" id="txtNumeroIdentificacion" name="txtNumeroIdentificacion" value="{{persona.idPersona}}" class="form-control" placeholder="Nombre"
-                            maxlength="50" required>
+                            min="100" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nombre</label>
@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label class="form-label">Telefono</label>
                         <input type="number" id="txttelefono" name="telefono" value="{{persona.telefono}}" class="form-control" placeholder="telefono"
-                            maxlength="50" required>
+                        min="1000000000" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Sexo</label>
@@ -47,10 +47,9 @@
                         </select>
                     </div>
                     
-                    <div class="form-group">
-                        <label class="form-label">Edad</label>
-                        <input type="number" id="txtedad" name="edad" value="{{persona.edad}}" class="form-control" placeholder="edad"
-                            maxlength="50" required>
+                    <div class="form-group mb-3">
+                        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento"  value="{{d.fecha_nacimiento}}" class="form-control" placeholder="Fecha de Nacimiento" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Documento de cabeza de familia</label>
@@ -71,7 +70,7 @@
                    
                       </form>
                       <div class="d-grid gap-2 caja-cancelar">
-                        <button class="btn btn-block boton-cancelar" onclick="goToPage('/gestionMunicipios')">Cancelar</button>
+                        <button class="btn btn-block boton-cancelar" onclick="goToPage('/gestionPersonas')">Cancelar</button>
                     </div>
                 </form>
             </div>

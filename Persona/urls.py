@@ -7,4 +7,6 @@ urlpatterns = [
     path('edicionPersona/<int:idPersona>/', views.edicionPersona),
     path('editarPersona/<int:idPersona>/', views.editarPersona),
     path('eliminarPersona/<int:idPersona>/', views.eliminarPersona),
+    path('buscar_direcciones/', views.buscar_direcciones, name='buscar_direcciones'),
+
 ]

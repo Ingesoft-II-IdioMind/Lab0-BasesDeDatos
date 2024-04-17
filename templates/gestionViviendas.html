@@ -33,8 +33,8 @@
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">Capacidad</label>
-                        <input type="text" id="txtCapacidad" name="txtCapacidad" class="form-control" placeholder="Capacidad"
-                            maxlength="50">
+                        <input type="number" id="txtCapacidad" name="txtCapacidad" class="form-control" placeholder="Capacidad"
+                           min="1" max="1000" >
                     </div>
 
                     <div class="form-group mb-3">
@@ -57,10 +57,11 @@
                     <tr>
                         <th>#</th>
                         <th>Id</th>
-                        <th>Direccion</th>
+                        <th>Dirección</th>
                         <th>Capacidad</th>
                         <th>Barrio</th>
                         <th>Tipo</th>
+                        <th>Propietario</th> <!-- Nueva columna -->
                         <th colspan="2">Opciones</th>
                     </tr>
                 </thead>
@@ -72,7 +73,8 @@
                         <td>{{v.direccion}}</td>
                         <td>{{v.capacidad}}</td>
                         <td>{{v.idBarrio.nombreBarrio}}</td>
-                        <td>{{v.idTipo_vivienda.nombre}}</td>  
+                        <td>{{v.idTipo_vivienda.nombre}}</td>
+                        <td>{{ v.personavivienda_set.first.idPersona.nombre }}</td> 
                         <td><a href="/edicionVivienda/{{v.idVivienda}}/" class="btn btn-editar">Editar</a></td>
                         <td><a href="/eliminarVivienda/{{v.idVivienda}}/" class="btn btn-eliminar">Eliminar</a></td>
                     </tr>
@@ -81,6 +83,7 @@
             </table>
         </div>
     </div>
+    
 </div>
 
 {% endblock %}

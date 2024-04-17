@@ -59,7 +59,7 @@
             <th>Area total</th>
             <th>Presupuesto</th>
             <th>Departamento</th>
-            <th>Alcalde</th>
+            <th>Identificacion del alcalde</th>
             <th colspan="2">Opciones</th>
           </tr>
         </thead>
@@ -73,7 +73,7 @@
             <td>{{d.area}}</td>
             <td>{{d.presupuesto}}</td>
             <td>{{d.idDepartamento}}</td>
-            <td>{{d.idAlcalde}}</td>
+            <td>{{d.idAlcalde.idPersona|default:"Desconocido"}}</td>
             <td>
               <a
                 href="/edicionMunicipio/{{d.idMunicipio}}/"

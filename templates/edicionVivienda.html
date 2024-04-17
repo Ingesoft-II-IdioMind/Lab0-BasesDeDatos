@@ -29,19 +29,19 @@
                       </div> 
                     
                     <div class="form-group mb-3">
-                        <label class="form-label">Direccion</label>
-                        <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" placeholder="Direccion "
+                        <label  value="{{d.direccion}}" class="form-label">Direccion</label>
+                        <input type="text" id="txtDireccion" value="{{viviendas.direccion}}" name="txtDireccion" class="form-control" placeholder="Direccion "
                             maxlength="50" required>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">Capacidad</label>
-                        <input type="text" id="txtCapacidad" name="txtCapacidad" class="form-control" placeholder="Capacidad"
-                            maxlength="50" required>
+                        <input type="number" id="txtCapacidad" name="txtCapacidad"   value="{{viviendas.capacidad}}" class="form-control" placeholder="Capacidad"
+                        min="1" max="1000" required>
                     </div>
                     <div class="form-group mb-3">
                         <label class="form-label">Identificacion propietario</label>
-                        <input type="text" id="txtPropietario" name="txtPropietario" class="form-control" placeholder="Propietario"
-                            required>
+                        <input type="number" id="txtPropietario" name="txtPropietario"  value="{{viviendas.idPropietario}}" class="form-control" placeholder="Propietario"
+                           min="1000" required>
                     </div>
                     <div class="d-grid gap-2 caja-guardar">
                         <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
@@ -49,7 +49,7 @@
                    
                       </form>
                       <div class="d-grid gap-2 caja-cancelar">
-                        <button class="btn btn-block boton-cancelar" onclick="goToPage('/gestionMunicipios')">Cancelar</button>
+                        <button class="btn btn-block boton-cancelar" onclick="goToPage('/gestionViviendas')">Cancelar</button>
                     </div>
                 </form>
             </div>

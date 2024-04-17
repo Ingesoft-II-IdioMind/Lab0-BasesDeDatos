@@ -1,40 +1,31 @@
 {%extends "./base.html" %} {%block title%}Gestion Municipios{%endblock%} {% block body%}
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    {% if messages %} {% for message in messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>{{ message }}</strong> 
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %} {% endif %}
     <h2 style="color: #e67320">Agregar Municipio</h2>
     <div class="card">
       <div class="card-body">
         <form action="/registrarMunicipio/" method="POST" class="">
           {% csrf_token %}
           <div class="form-group mb-3">
-            <label class="form-label">Nombre</label>
-            <input type="text" required id="txtNombreMunicipio"              name="txtNombreMunicipio"     value="{{municipios.nombreMunicipio}}"          class="form-control"             placeholder="nombre de municipio" maxlength="50"/>
+            <label class="form-label">Nombre municipio</label>
+            <input type="text" required id="txtNombreMunicipio" name="txtNombreMunicipio" value="{{municipios.nombreMunicipio}}" class="form-control" placeholder="Puerto alegre" maxlength="50"/>
           </div>
-
           <div class="form-group">
             <label class="form-label">Poblacion</label>
-            <input type="number" required id="txPoblacion" name="txtPoblacion" value="{{municipios.poblacion}}" class="form-control" placeholder="Numero de identificación"
-                maxlength="50">
+            <input type="number" required id="txPoblacion" name="txtPoblacion" value="{{municipios.poblacion}}" class="form-control" placeholder="10000"
+            min="1" max="10000000">
         </div>
-
           <div class="form-group">
             <label class="form-label">Area total (km)</label>
-            <input type="number" required id="txtArea" name="txtArea" value="{{municipios.area}}" class="form-control" placeholder="Numero de identificación"
-                maxlength="50">
+            <input type="number" required id="txtArea" name="txtArea" value="{{municipios.area}}" class="form-control" placeholder="1000"
+            min="10" max="1000000">
         </div>
 
         <div class="form-group">
           <label class="form-label">Presupuesto (Millones)</label>
-          <input type="number" required id="txtPresupuesto" name="txtPresupuesto" value="{{municipios.Presupuesto}}" class="form-control" placeholder="presupuesto"
-              maxlength="50">
+          <input type="number" required id="txtPresupuesto" name="txtPresupuesto" value="{{municipios.Presupuesto}}" class="form-control" placeholder="10000"
+            min="0" max="1000000">
       </div>
-           
           <div class="form-group mb-3">
             <label class="form-label">Departamento</label>
             <select id="txtDepartamento" required name="txtDepartamento" class="form-control">
@@ -46,7 +37,7 @@
           <div class="form-group">
             <label class="form-label">Documento del Alcalde</label>
             <input type="number" required id="txtAlcalde" name="txtAlcalde" value="{{municipios.idAlcalde}}" class="form-control" placeholder="Numero de identificación"
-                maxlength="50">
+            min="1000">
         </div>
         <div class="d-grid gap-2 caja-guardar">
           <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>

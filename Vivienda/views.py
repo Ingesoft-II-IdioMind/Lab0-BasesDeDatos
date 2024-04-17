@@ -11,7 +11,7 @@ def gestionViviendas(request):
     persona = Persona.objects.all()
     barrios = Barrio.objects.all()
     tipoviviendas = TipoVivienda.objects.all() 
-    messages.success(request, '¡Viviendas listadas!')
+    # messages.success(request, '¡Viviendas listadas!')
     return render(request, 'gestionViviendas.html',{'viviendas':viviendas,'barrios':barrios,'tipoviviendas':tipoviviendas,'personas':persona})
 
 def registrarVivienda(request):

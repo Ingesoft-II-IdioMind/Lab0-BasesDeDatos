@@ -5,25 +5,25 @@
 {% block body %}
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2>Editar departamento</h2>
+        <h2>Editar departamento {{Departamento.nombreDepartamento}}</h2>
         <div class="card">
             <div class="card-body">
                 <form action="/editarDepartamento/{{Departamento.idDepartamento}}/" method="POST">{% csrf_token %}
                     <div class="form-group">
-                        <label class="form-label">Nombre departamento</label>
+                        <label class="form-label">Nombre departament</label>
                         <input type="text" id="txtNombre" name="txtNombre" value="{{Departamento.nombreDepartamento}}" class="form-control" placeholder="Nombre"
                             maxlength="50" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Población</label>
-                        <input type="number" id="numPoblacion" name="numPoblacion" value="{{Departamento.poblacion}}" class="form-control" placeholder="Poblacion"
+                        <input type="number" min="1" max="1000000" id="numPoblacion" name="numPoblacion" value="{{Departamento.poblacion}}" class="form-control" placeholder="Poblacion"
                             maxlength="50" required>
                     </div>
                       <div class="form-group">
                         <label class="form-label">Documento del Gobernador</label>
                         <input type="number" id="txtGobernador" name="txtGobernador" value="{{departamentos.idGobernador}}" class="form-control" placeholder="Numero de identificación"
-                            maxlength="50" required>
+                            min="1000" required>
                     </div>
 
                     <div class="d-grid gap-2 caja-guardar">

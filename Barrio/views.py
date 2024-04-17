@@ -8,7 +8,7 @@ from Municipio.models import Municipio
 def gestionBarrios(request):
     barrios = Barrio.objects.all()
     municipios = Municipio.objects.all()
-    messages.success(request, '¡Barrios listados!')
+    # messages.success(request, '¡Barrios listados!')
     return render(request, 'gestionBarrios.html', {'barrios': barrios, 'municipios': municipios})
 
 def registrarBarrio(request):

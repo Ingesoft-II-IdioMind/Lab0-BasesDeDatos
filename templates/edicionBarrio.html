@@ -5,23 +5,23 @@
 {% block body %}
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h2>Editar barrio</h2>
+        <h2>Editar barrio {{barrios.nombreBarrio}}</h2>
         <div class="card">
             <div class="card-body">
                 <form action="/editarBarrio/{{barrios.idBarrio}}" method="POST">{% csrf_token %}
                     <div class="form-group">
                         <label class="form-label">Nombre barrio</label>
-                        <input type="text" id="txtNombreBarrio" name="txtNombreBarrio" value="{{barrios.nombreBarrio}}" class="form-control" placeholder="nombre barrio">
+                        <input type="text" id="txtNombreBarrio" name="txtNombreBarrio" value="{{barrios.nombreBarrio}}" class="form-control" placeholder="nombre barrio" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Población</label>
                         <input type="number" id="txtPoblacion" name="txtPoblacion" value="{{barrios.poblacion}}" class="form-control" placeholder="poblacion"
-                            maxlength="50">
+                        min="1" max="1000000" required>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="form-label">Municipio</label>
-                        <select id="txtMunicipio" name="txtMunicipio" class="form-control">
+                        <select id="txtMunicipio" required name="txtMunicipio" class="form-control">
                             {% for d in municipios %}
                                 <option value="{{d.idMunicipio}}">{{d.nombreMunicipio}}</option>
                             {% endfor %}

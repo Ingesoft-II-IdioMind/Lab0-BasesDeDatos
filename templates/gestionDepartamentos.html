@@ -1,29 +1,23 @@
 {%extends "./base.html" %} {%block title%}Gestion Departamentos{%endblock%} {% block body%}
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    {% if messages %} {% for message in messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>{{ message }}</strong> 
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %} {% endif %}
     <h2 style="color: #e67320">Agregar departamento</h2>
     <div class="card">
       <div class="card-body">
         <form action="/registrarDepartamento/" method="POST" class="">
           {% csrf_token %}
           <div class="form-group mb-3">
-            <label class="form-label">Nombre</label>
+            <label class="form-label">Nombre departamento</label>
             <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre" maxlength="50" required/>
           </div>
           <div class="form-group mb-3">
             <label class="form-label">Poblacion</label>
-            <input type="number" min="0" max="100000" id="txtPoblacion" name="txtPoblacion" class="form-control" placeholder="100" maxlength="50" required/>
+            <input type="number" min="1" max="10000000" id="txtPoblacion" name="txtPoblacion" class="form-control" placeholder="100" maxlength="50" required/>
           </div>
           <div class="form-group mb-3">
             <label class="form-label">Documento del Gobernador</label>
             <input type="number" id="txtGobernador" name="txtGobernador" value="{{departamentos.idGobernador}}" class="form-control" placeholder="Numero de identificación"
-                maxlength="50" required>
+            min="1000" required>
         </div>
           <div class="d-grid gap-2 caja-guardar">
             <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>

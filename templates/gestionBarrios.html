@@ -1,25 +1,19 @@
 {%extends "./base.html" %} {%block title%}Gestion Barrios{%endblock%} {% block body%}
 <div class="row">
-  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-    {% if messages %} {% for message in messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>{{ message }}</strong> 
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %} {% endif %}
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">    
     <h2 style="color: #E67320">Agregar barrio</h2>
     <div class="card">
       <div class="card-body">
           <form action="/registrarBarrio/" method="POST">{% csrf_token %}
               <div class="form-group">
                 <label class="form-label">Nombre barrio</label>
-                  <input type="text" required id="txtNombreBarrio" name="txtNombreBarrio" value="{{barrios.nombreBarrio}}" class="form-control" placeholder="nombre barrio"
+                  <input type="text" required id="txtNombreBarrio" name="txtNombreBarrio" value="{{barrios.nombreBarrio}}" class="form-control" placeholder="Galan"
                      >
               </div>
               <div class="form-group">
                 <label class="form-label">Población</label>
-                  <input type="number" required id="txtPoblacion" name="txtPoblacion" value="{{barrios.poblacion}}" class="form-control" placeholder="poblacion"
-                      maxlength="50">
+                  <input type="number" required id="txtPoblacion" name="txtPoblacion" value="{{barrios.poblacion}}" class="form-control" placeholder="1000"
+                  min="1" max="1000000">
               </div>
 
               <div class="form-group mb-3">

@@ -19,11 +19,6 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Numero de identificacion</label>
-                        <input type="number" id="txtNumeroIdentificacion" name="txtNumeroIdentificacion" value="{{persona.idPersona}}" class="form-control" placeholder="Nombre"
-                            min="100" required>
-                    </div>
-                    <div class="form-group">
                         <label class="form-label">Nombre</label>
                         <input type="text" id="txtNombre" name="Nombre" value="{{persona.nombre}}" class="form-control" placeholder="Nombre"
                             maxlength="50" required>
@@ -55,26 +50,120 @@
                         <label class="form-label">Documento de cabeza de familia</label>
                         <input type="number" id="txtCabezaIdentificacion" name="txtCabezaIdentificacion" value="{{persona.idResponsable.idPersona}}" class="form-control" placeholder="Numero de identificación" maxlength="50" required>
                     </div>
+
                     <div class="form-group mb-3">
-                        <label class="form-label">Direccion Vivienda</label>
-                        <select id="txtRelacionvivienda" name="txtRelacionvivienda" class="form-control">
-                            {% for d in viviendas %}
-                                <option value="{{d.idVivienda}}">{{d.direccion}}</option>
-                            {% endfor %}
-                        </select>
-                      </div>
+                        <label class="form-label">Dirección de la vivienda</label>
+                        <input type="text" id="txtBusquedaDireccion" class="form-control" placeholder="Buscar dirección de vivienda">
+                        <div id="selectWrapper" class="form-group mb-3" style="display: none;"> <!-- Utiliza un contenedor para el select y ocúltalo por defecto -->
+                            <label class="form-label">Seleccionar dirección</label>
+                            <select id="txtRelacionvivienda" name="txtRelacionvivienda" class="form-control">
+                                {% for vivienda in viviendas %}
+                                    <option value="{{vivienda.idVivienda}}" data-id="{{vivienda.idVivienda}}">{{vivienda.direccion}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                     
+        
+                    
+                    <div class="modal fade" id="modalBusquedaVivienda" tabindex="-1" aria-labelledby="modalBusquedaViviendaLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="modalBusquedaViviendaLabel">Buscar dirección de vivienda</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <input type="text" id="txtBusquedaDireccionModal" class="form-control" placeholder="Buscar dirección de vivienda">
+                            <div id="opcionesDireccionesModal" class="opciones-direcciones"></div>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
                       <div class="d-grid gap-2 caja-guardar">
                         <button type="submit" class="btn btn-block boton-guardar" >Guardar</button>
                     </div>
+                    <!-- Modal para la búsqueda de vivienda -->
                    
                       </form>
                       <div class="d-grid gap-2 caja-cancelar">
-                        <button class="btn btn-block boton-cancelar" onclick="goToPage('/gestionPersonas')">Cancelar</button>
+                        <button class="btn btn-block boton-cancelar" onclick="goToPage('/')">Cancelar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .opcion-direccion {
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .opcion-direccion:hover {
+        background-color: #f4f4f4;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Función para actualizar el valor de txtRelacionvivienda
+        function actualizarTxtRelacionvivienda(valor) {
+            $('#txtRelacionvivienda').val(valor);
+        }
+    
+        // Evento para manejar la selección de una dirección de vivienda en la modal
+        $('#opcionesDireccionesModal').on('click', '.opcion-direccion', function() {
+            var direccionSeleccionada = $(this).text();
+            var idViviendaSeleccionada = $(this).data('id');
+            $('#txtBusquedaDireccion').val(direccionSeleccionada);
+            actualizarTxtRelacionvivienda(idViviendaSeleccionada);
+            $('#modalBusquedaVivienda').modal('hide'); // Ocultar la modal
+        });
+    
+        // Evento para manejar la búsqueda de direcciones en la modal
+        $('#txtBusquedaDireccionModal').on('input', function() {
+            var searchText = $(this).val().toLowerCase();
+            var opciones = $('#opcionesDireccionesModal');
+            opciones.empty(); // Limpiar opciones anteriores
+            var count = 0; // Contador de resultados mostrados
+            if (searchText.length > 0) {
+                $('#txtRelacionvivienda option').each(function() {
+                    var optionText = $(this).text().toLowerCase();
+                    if (optionText.includes(searchText)) {
+                        var opcion = $('<div class="opcion-direccion"></div>').text(optionText).data('id', $(this).val());
+                        opciones.append(opcion);
+                        count++;
+                    }
+                    if (count >= 10) {
+                        return false; // Salir del bucle cuando se alcance el máximo de 10 resultados
+                    }
+                });
+            }
+        });
+    
+        // Evento para mostrar la modal al hacer clic en el input de búsqueda del formulario principal
+        $('#txtBusquedaDireccion').click(function() {
+            $('#modalBusquedaVivienda').modal('show');
+        });
+    
+        // Evento para manejar el envío del formulario principal
+        $('form').submit(function() {
+            var direccionSeleccionada = $('#txtBusquedaDireccion').val();
+            var idViviendaSeleccionada = $('#txtRelacionvivienda').val();
+            if (!direccionSeleccionada || !idViviendaSeleccionada) {
+                alert('Por favor, seleccione una dirección de vivienda.');
+                return false; // Evitar que se envíe el formulario si falta la dirección de vivienda
+            }
+        });
+    });
+    </script>
+    
 {% endblock %}
